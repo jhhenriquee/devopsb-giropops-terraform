@@ -1,8 +1,8 @@
 # devopsb-giropops-terraform
 Módulo terraform
 
-Para utilizar
-1. Crie as pasta `terraform` e `scripts` no seu repositório.
+# Para utilizar
+## 1. Crie as pasta `terraform` e `scripts` no seu repositório.
 
 Em scripts adicione o script para inicialização do servidor.
 
@@ -16,7 +16,7 @@ mkdir terraform scripts
 vi scripts/user_data.sh
 ```
 
-2. Configure os arquivos terraform. 
+## 2. Configure os arquivos terraform. 
 
 ```bash
 vi terraform/main.tf
@@ -60,4 +60,26 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
+```
+
+## 3. Crie a infra
+
+```bash
+cd terraform
+```
+
+```bash
+terraform init
+```
+
+```bash
+terraform plan -out 1.plan
+```
+
+```bash
+terraform apply "1.plan"
+```
+
+```bash
+terraform destroy
 ```
