@@ -18,9 +18,23 @@ vi scripts/user_data.sh
 
 ## 2. Configure os arquivos terraform. 
 
+
+- source: informe a url com a versão do módulo que deseja usar.
+- user_data_file: informe o caminho para o user_data.sh. Geralmente  ../scripts/user_data.sh.
+- aws_region: região aws onde será levantada a infra.
+- instance_type: tipo de instancia necessária para a aplicação.
+- ubuntu_ami_name_filter: informe qual SO deseja usar, o módulo usará o mais recente das amis da canonical.
+- allowed_cidrs lista de ips para liberar acesso na porta 22 e range entre 5000 e 6000. O módulo libera tráfego geral para 80 e 443.
+- public_key: chave pública ssh para acessar o ec2.
+
+O output informará o ip público após finalização do apply.
+
 ```bash
 vi terraform/main.tf
 ```
+
+Acredito que deixando tudo como está já funcionaria, altere apenas a public_key e informe seu ip publico em allowed_cidrs.
+
 ```bash
 module "infra" {
   source = "git::https://github.com/jhhenriquee/devopsb-giropops-terraform.git?ref=v1.0.0"
@@ -30,7 +44,7 @@ module "infra" {
   instance_type          = "t2.micro"
   user_data_file         = "${path.module}/../scripts/user_data.sh"
   ubuntu_ami_name_filter = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
-  allowed_cidrs          = ["189.6.211.137/32"]
+  allowed_cidrs          = ["0.0.0.0/0"]
   public_key             = ""
 }
 
@@ -38,9 +52,12 @@ output "instance_public_ip" {
   value = module.infra.instance_ip
 }
 ```
+
+
 ```bash
 vi terraform/provider.tf
 ```
+Acredito que deixando tudo como está já funcionaria, informe apenas o seu bucket onde deseja salvar o state.
 ```bash
 terraform {
   backend "s3" {
