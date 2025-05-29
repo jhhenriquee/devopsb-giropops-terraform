@@ -31,3 +31,9 @@ variable "user_data_file" {
   description = "Caminho para o script de inicialização (user data)"
   type        = string
 }
+
+variable "ubuntu_ami_name_filter" {
+  type        = string
+  description = "Filtro para o nome da AMI Ubuntu, com wildcards"
+  default     = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+}
