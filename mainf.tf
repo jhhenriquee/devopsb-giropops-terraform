@@ -1,6 +1,6 @@
 resource "aws_key_pair" "key_pair" {
   key_name   = "${var.project_name}-key"
-  public_key = public_key
+  public_key = var.public_key
   tags = {
     Terraform = "true"
     Project   = var.project_name
