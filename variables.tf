@@ -26,3 +26,8 @@ variable "allowed_cidrs" {
   description = "Lista de CIDRs autorizados para SSH e portas entre 5000 e 6000"
   default     = ["0.0.0.0/0"]
 }
+
+variable "user_data_file" {
+  description = "Caminho para o script de inicialização (user data)"
+  type        = string
+}
