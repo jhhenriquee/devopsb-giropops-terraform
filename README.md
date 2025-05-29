@@ -64,6 +64,18 @@ provider "aws" {
 
 ## 3. Crie a infra
 
+É necessário ter terraform instalado e as credenciais da aws configuradas.
+
+Para configurar credenciais através de variáveis:
+
+BASH:
+- export AWS_SECRET_ACCESS_KEY=""
+- export AWS_ACCESS_KEY_ID=""
+
+POWERSHELL:
+- $env:AWS_ACCESS_KEY_ID=""
+- $env:AWS_SECRET_ACCESS_KEY=""
+
 ```bash
 cd terraform
 ```
