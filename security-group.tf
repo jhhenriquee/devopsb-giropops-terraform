@@ -12,14 +12,14 @@ module "security_group" {
       to_port     = 22
       protocol    = 6
       description = "SSH Casa"
-      cidr_blocks = join(",", var.ssh_allowed_cidrs)
+      cidr_blocks = join(",", var.allowed_cidrs)
     },
     {
       from_port   = 5000
       to_port     = 6000
       protocol    = 6
       description = "liberacao entre 5000 e 6000"
-      cidr_blocks = join(",", var.ssh_allowed_cidrs)
+      cidr_blocks = join(",", var.allowed_cidrs)
     },
     {
       from_port   = 80
