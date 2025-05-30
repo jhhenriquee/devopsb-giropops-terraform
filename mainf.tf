@@ -30,7 +30,7 @@ resource "aws_instance" "instance" {
   instance_type          = var.instance_type
   key_name               = var.public_key != null ? "${var.project_name}-key" : null
   subnet_id              = module.vpc.public_subnets[0]
-  vpc_security_group_ids = [module.security_group.security_group_id]
+  vpc_security_group_ids = [aws_security_group.main.id]
 
   user_data = file(var.user_data_file)
 
