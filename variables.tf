@@ -38,8 +38,19 @@ variable "ubuntu_ami_name_filter" {
   default     = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
 }
 
-variable "extra_in_allowports" {
-  description = "Lista de portas TCP a liberar para os CIDRs permitidos"
-  type        = list(number)
-  default     = []
+variable "allow_ingress" {
+  type = map(object({
+    port       = number
+    cidr_block = string
+  }))
+  default = {
+    http = {
+      port       = 80
+      cidr_block = "0.0.0.0/0"
+    },
+    https = {
+      port       = 443
+      cidr_block = "0.0.0.0/0"
+    }
+  }
 }
