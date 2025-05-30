@@ -28,7 +28,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "instance" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
-  key_name               = "${var.project_name}-key"
+  key_name               = var.public_key != null ? "${var.project_name}-key" : null
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [module.security_group.security_group_id]
 
