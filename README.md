@@ -32,7 +32,7 @@ O output informará o ip público após finalização do apply. O default libera
 vi terraform/main.tf
 ```
 
-Acredito que deixando tudo como está já funcionaria, altere apenas a public_key e informe seu ip publico em allowed_cidrs.
+Acredito que deixando tudo como está já funcionaria, altere apenas a public_key e informe seu ip publico em cidr_block.
 
 ```bash
 module "infra" {
