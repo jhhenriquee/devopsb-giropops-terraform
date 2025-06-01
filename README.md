@@ -24,11 +24,9 @@ vi scripts/user_data.sh
 - aws_region: região aws onde será levantada a infra.
 - instance_type: tipo de instancia necessária para a aplicação.
 - ubuntu_ami_name_filter: informe qual SO deseja usar, o módulo usará o mais recente das amis da canonical.
-- allowed_cidrs lista de ips para liberar acesso nas portas informadas em extra_in_allowports. O módulo libera tráfego geral para 80 e 443.
-- extra_in_allowports lista de portas para liberar aos endereços informados em allowed_cidrs. Não informar caso não queira liberar nada.
 - public_key: chave pública ssh para acessar o ec2. Não informar caso não deseja acessar o ec2 por ssh. (caso queira acessar lembre-se de liberar a 22 em extra_in_allowports e informe seu ip publico em allowed_cidrs)
-
-O output informará o ip público após finalização do apply.
+- allow_ingress: informe lista de quais portas serão liberadas para um determinado ip. A forma de declarção está exemplificada abaixo.
+O output informará o ip público após finalização do apply. O default libera tudo pra 80 e 443.
 
 ```bash
 vi terraform/main.tf
@@ -38,23 +36,39 @@ Acredito que deixando tudo como está já funcionaria, altere apenas a public_ke
 
 ```bash
 module "infra" {
-  source = "git::https://github.com/jhhenriquee/devopsb-giropops-terraform.git?ref=v1.1.0"
+  source = "git::https://github.com/jhhenriquee/devopsb-giropops-terraform.git?ref=v2.0.0"
 
   project_name           = "giropops"
   aws_region             = "us-east-1"
   instance_type          = "t2.micro"
   user_data_file         = "${path.module}/../scripts/user_data.sh"
   ubuntu_ami_name_filter = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
-  allowed_cidrs          = ["0.0.0.0/0"]
-  extra_in_allowports    = [22,5000]  
-  public_key             = ""
-}
+  public_key             = "ssh-rsa ..."
+
+  allow_ingress = {
+    http = {
+      port       = 80
+      cidr_block = "0.0.0.0/0"
+    },
+    https = {
+      port       = 443
+      cidr_block = "0.0.0.0/0"
+    },
+    flask = {
+      port       = 5000
+      cidr_block = "0.0.0.0/32"
+    },
+    ssh = {
+      port       = 22
+      cidr_block = "0.0.0.0/32"
+    }
+  }
+ }
 
 output "instance_public_ip" {
   value = module.infra.instance_ip
 }
 ```
-
 
 ```bash
 vi terraform/provider.tf
