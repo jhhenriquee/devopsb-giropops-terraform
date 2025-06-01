@@ -24,7 +24,7 @@ vi scripts/user_data.sh
 - aws_region: região aws onde será levantada a infra.
 - instance_type: tipo de instancia necessária para a aplicação.
 - ubuntu_ami_name_filter: informe qual SO deseja usar, o módulo usará o mais recente das amis da canonical.
-- public_key: chave pública ssh para acessar o ec2. Não informar caso não deseja acessar o ec2 por ssh. (caso queira acessar lembre-se de liberar a 22 em extra_in_allowports e informe seu ip publico em allowed_cidrs)
+- public_key: chave pública ssh para acessar o ec2. Não informar caso não deseje acessar o ec2 por ssh. (caso queira acessar lembre-se de liberar a 22 em allow_ingress para seu ip publico)
 - allow_ingress: informe lista de quais portas serão liberadas para um determinado ip. A forma de declarção está exemplificada abaixo.
 O output informará o ip público após finalização do apply. O default libera tudo pra 80 e 443.
 
