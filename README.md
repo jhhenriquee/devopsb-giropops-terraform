@@ -37,7 +37,7 @@ Acredito que deixando tudo como está já funcionaria, altere apenas a public_ke
 
 ```bash
 module "infra" {
-  source = "git::https://github.com/jhhenriquee/devopsb-giropops-terraform.git?ref=v2.1.0"
+  source = "git::https://github.com/jhhenriquee/devopsb-giropops-terraform.git?ref=v2.2.0"
 
   project_name           = "giropops"
   aws_region             = "us-east-1"
