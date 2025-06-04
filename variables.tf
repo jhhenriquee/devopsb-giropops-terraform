@@ -54,3 +54,15 @@ variable "allow_ingress" {
     }
   }
 }
+
+variable "ebs_volume_size" {
+  description = "Tamanho do volume EBS (em GB) usado para persistência de dados"
+  type        = number
+  default     = 1
+}
+
+variable "prevent_destroy_volume" {
+  description = "Define se o volume EBS deve ter prevent_destroy ativado"
+  type        = bool
+  default     = true
+}

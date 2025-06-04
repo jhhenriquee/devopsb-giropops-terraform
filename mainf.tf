@@ -24,6 +24,27 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+resource "aws_ebs_volume" "persist_data" {
+  availability_zone = aws_instance.instance.availability_zone
+  size              = var.ebs_volume_size
+
+  tags = {
+    Name      = "${var.project_name}-persist-data"
+    Terraform = "true"
+  }
+
+  lifecycle {
+    prevent_destroy = var.prevent_destroy_volume
+  }
+}
+
+resource "aws_volume_attachment" "persist_data_attach" {
+  device_name  = "/dev/xvdf"
+  volume_id    = aws_ebs_volume.persist_data.id
+  instance_id  = aws_instance.instance.id
+  force_detach = true
+}
+
 
 resource "aws_instance" "instance" {
   ami                    = data.aws_ami.ubuntu.id
