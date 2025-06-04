@@ -61,6 +61,12 @@ variable "ebs_volume_size" {
   default     = 1
 }
 
+variable "ebs_device_name" {
+  description = "Tamanho do volume EBS (em GB) usado para persistência de dados"
+  type        = string
+  default     = "xvdf"
+}
+
 variable "prevent_destroy_volume" {
   description = "Define se o volume EBS deve ter prevent_destroy ativado"
   type        = bool

@@ -39,7 +39,7 @@ resource "aws_ebs_volume" "persist_data" {
 }
 
 resource "aws_volume_attachment" "persist_data_attach" {
-  device_name  = "/dev/xvdf"
+  device_name  = "/dev/${var.ebs_device_name}"
   volume_id    = aws_ebs_volume.persist_data.id
   instance_id  = aws_instance.instance.id
   force_detach = true
