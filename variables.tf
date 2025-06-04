@@ -58,7 +58,7 @@ variable "allow_ingress" {
 variable "ebs_volume_size" {
   description = "Tamanho do volume EBS (em GB) usado para persistência de dados"
   type        = number
-  default     = 1
+  default     = 0
 }
 
 variable "ebs_device_name" {

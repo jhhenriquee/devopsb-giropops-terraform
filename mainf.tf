@@ -25,12 +25,14 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_ebs_volume" "persist_data" {
+  count             = var.ebs_volume_size > 0 ? 1 : 0
   availability_zone = aws_instance.instance.availability_zone
   size              = var.ebs_volume_size
 
   tags = {
     Name      = "${var.project_name}-persist-data"
     Terraform = "true"
+    Project   = var.project_name
   }
 }
 
@@ -44,14 +46,16 @@ resource "aws_instance" "instance" {
   user_data = file(var.user_data_file)
 
   tags = {
+    Name      = "${var.project_name}-ec2"
     Terraform = "true"
     Project   = var.project_name
   }
 }
 
 resource "aws_volume_attachment" "persist_data_attach" {
+  count        = var.ebs_volume_size > 0 ? 1 : 0
   device_name  = "/dev/${var.ebs_device_name}"
-  volume_id    = aws_ebs_volume.persist_data.id
+  volume_id    = aws_ebs_volume.persist_data[0].id
   instance_id  = aws_instance.instance.id
   force_detach = true
 }
