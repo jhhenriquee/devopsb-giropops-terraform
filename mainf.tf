@@ -54,7 +54,7 @@ resource "aws_instance" "instance" {
 
 resource "aws_volume_attachment" "persist_data_attach" {
   count        = var.ebs_volume_size > 0 ? 1 : 0
-  device_name  = "/dev/${var.ebs_device_name}"
+  device_name  = "/dev/xvdf"
   volume_id    = aws_ebs_volume.persist_data[0].id
   instance_id  = aws_instance.instance.id
   force_detach = true

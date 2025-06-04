@@ -61,8 +61,3 @@ variable "ebs_volume_size" {
   default     = 0
 }
 
-variable "ebs_device_name" {
-  description = "Tamanho do volume EBS (em GB) usado para persistência de dados"
-  type        = string
-  default     = "xvdf"
-}

@@ -26,7 +26,6 @@ vi scripts/user_data.sh
 - ubuntu_ami_name_filter: informe qual SO deseja usar, o módulo usará o mais recente das amis da canonical.
 - public_key: chave pública ssh para acessar o ec2. Não informar caso não deseje acessar o ec2 por ssh. (caso queira acessar lembre-se de liberar a 22 em allow_ingress para seu ip publico)
 - ebs_volume_size: tamanho do bloco persistente. Padrão ZERO (não cria nenhum).
-- ebs_device_name: nome para o bloco persistente no ec2 (facilita script de formatação). Padrão é xvdf.
 - allow_ingress: informe lista de quais portas serão liberadas para um determinado ip. A forma de declarção está exemplificada abaixo.
 O output informará o ip público após finalização do apply. O default libera tudo pra 80 e 443.
 
@@ -47,7 +46,6 @@ module "infra" {
   ubuntu_ami_name_filter = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
   public_key             = "ssh-rsa ..."
   ebs_volume_size        = 2
-  ebs_device_name        = "xvdf"
 
   allow_ingress = {
     http = {
