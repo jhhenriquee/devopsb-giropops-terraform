@@ -32,19 +32,7 @@ resource "aws_ebs_volume" "persist_data" {
     Name      = "${var.project_name}-persist-data"
     Terraform = "true"
   }
-
-  lifecycle {
-    prevent_destroy = var.prevent_destroy_volume
-  }
 }
-
-resource "aws_volume_attachment" "persist_data_attach" {
-  device_name  = "/dev/${var.ebs_device_name}"
-  volume_id    = aws_ebs_volume.persist_data.id
-  instance_id  = aws_instance.instance.id
-  force_detach = true
-}
-
 
 resource "aws_instance" "instance" {
   ami                    = data.aws_ami.ubuntu.id
@@ -61,4 +49,9 @@ resource "aws_instance" "instance" {
   }
 }
 
-
+resource "aws_volume_attachment" "persist_data_attach" {
+  device_name  = "/dev/${var.ebs_device_name}"
+  volume_id    = aws_ebs_volume.persist_data.id
+  instance_id  = aws_instance.instance.id
+  force_detach = true
+}

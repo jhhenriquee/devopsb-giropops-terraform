@@ -66,9 +66,3 @@ variable "ebs_device_name" {
   type        = string
   default     = "xvdf"
 }
-
-variable "prevent_destroy_volume" {
-  description = "Define se o volume EBS deve ter prevent_destroy ativado"
-  type        = bool
-  default     = true
-}
