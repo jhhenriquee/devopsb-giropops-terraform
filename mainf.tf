@@ -59,3 +59,4 @@ resource "aws_volume_attachment" "persist_data_attach" {
   instance_id  = aws_instance.instance.id
   force_detach = true
 }
+#teste do actions
