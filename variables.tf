@@ -38,6 +38,12 @@ variable "ubuntu_ami_name_filter" {
   default     = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
 }
 
+variable "packer_ami" {
+  type        = string
+  description = "Informar ami criada pelo packer/ansible/etc"
+  default     = null
+}
+
 variable "allow_ingress" {
   type = map(object({
     port       = number
