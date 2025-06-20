@@ -37,7 +37,7 @@ resource "aws_ebs_volume" "persist_data" {
 }
 
 resource "aws_instance" "instance" {
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = var.packer_ami != null ? var.packer_ami : data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
   key_name               = var.public_key != null ? "${var.project_name}-key" : null
   subnet_id              = module.vpc.public_subnets[0]
@@ -59,3 +59,4 @@ resource "aws_volume_attachment" "persist_data_attach" {
   instance_id  = aws_instance.instance.id
   force_detach = true
 }
+#teste do actions
